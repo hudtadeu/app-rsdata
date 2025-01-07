@@ -4,12 +4,10 @@ import { NavigationContainer } from '@react-navigation/native';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
 
-// Telas
 import HomeScreen from '../screens/HomeScreen';
 
 const Drawer = createDrawerNavigator();
 
-// Custom Drawer Content
 const CustomDrawerContent = ({ navigation }) => {
   const [subMenus, setSubMenus] = useState({
     conformidade: false,
