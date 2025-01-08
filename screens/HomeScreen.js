@@ -31,17 +31,12 @@ export default function HomeScreen() {
 
   return (
     <View style={styles.container}>
-      <View style={styles.header}>
-        <MaterialIcons name="home" size={28} color="#fff" />
-        <Text style={styles.headerTitle}>Início</Text>
-      </View>
       <FlatList
         data={options}
         keyExtractor={(item) => item.id.toString()}
         renderItem={renderOption}
         contentContainerStyle={styles.list}
       />
-      <Text style={styles.footer}>Versão 1.0</Text>
     </View>
   );
 }
@@ -50,19 +45,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-  },
-  header: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    backgroundColor: '#0098c9',
-    paddingVertical: 15,
-    paddingHorizontal: 20,
-  },
-  headerTitle: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    color: '#fff',
-    marginLeft: 10,
   },
   list: {
     padding: 20,
@@ -100,11 +82,5 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: '#666',
     marginTop: 5,
-  },
-  footer: {
-    textAlign: 'center',
-    color: '#999',
-    fontSize: 12,
-    paddingVertical: 10,
   },
 });
