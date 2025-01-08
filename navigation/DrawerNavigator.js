@@ -4,33 +4,25 @@ import { NavigationContainer } from '@react-navigation/native';
 import { View, Text, StyleSheet, TouchableOpacity, TextInput, Image } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
 
-import HomeScreen from '../screens/HomeScreen'; // Tela Principal
+import HomeScreen from '../screens/HomeScreen'; 
 
 const Drawer = createDrawerNavigator();
 
 const CustomDrawerContent = ({ navigation }) => {
-  const [activeItem, setActiveItem] = useState(''); // Para rastrear qual item foi clicado
+  const [activeItem, setActiveItem] = useState('');
   const [subMenus, setSubMenus] = useState({
     conformidade: false,
-    gpo: false,
-    epi: false,
-    incendio: false,
-    ho: false,
-    culturaSSO: false,
-    pericias: false,
-    contratadas: false,
-    tributacao: false,
   });
 
   const [searchQuery, setSearchQuery] = useState('');
 
   const toggleSubMenu = (key) => {
     setSubMenus((prev) => ({ ...prev, [key]: !prev[key] }));
-    setActiveItem(key); // Aplica o estilo ativo ao item com submenu
+    setActiveItem(key);
   };
 
   const handleItemPress = (key, navigateTo) => {
-    setActiveItem(key); // Define o item clicado como ativo
+    setActiveItem(key);
     navigation.navigate(navigateTo);
   };
 
@@ -73,50 +65,9 @@ const CustomDrawerContent = ({ navigation }) => {
         </Text>
       </TouchableOpacity>
 
-      {/* Conformidade Legal */}
-      <TouchableOpacity
-        style={[
-          styles.menuItem,
-          activeItem === 'conformidade' ? styles.activeMenuItem : null,
-        ]}
-        onPress={() => toggleSubMenu('conformidade')}
-      >
-        <MaterialIcons
-          name="gavel"
-          size={24}
-          color={activeItem === 'conformidade' ? '#0098c9' : '#fff'}
-        />
-        <Text
-          style={[
-            styles.menuText,
-            activeItem === 'conformidade' ? styles.activeMenuText : null,
-          ]}
-        >
-          Conformidade Legal
-        </Text>
-        <MaterialIcons
-          name={subMenus.conformidade ? 'keyboard-arrow-up' : 'keyboard-arrow-down'}
-          size={24}
-          color={activeItem === 'conformidade' ? '#0098c9' : '#fff'}
-        />
-      </TouchableOpacity>
-      {subMenus.conformidade && (
-        <View style={styles.subMenu}>
-          <TouchableOpacity
-            onPress={() => handleItemPress('submenu1', 'Submenu Conformidade 1')}
-          >
-            <Text style={styles.subMenuText}>Submenu 1</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            onPress={() => handleItemPress('submenu2', 'Submenu Conformidade 2')}
-          >
-            <Text style={styles.subMenuText}>Submenu 2</Text>
-          </TouchableOpacity>
-        </View>
-      )}
-
       {/* Outros Itens */}
       {[
+        { key: 'conformidade', label: 'Conformidade Legal', icon: 'gavel', navigateTo: 'Conformidade' },
         { key: 'gpo', label: 'GPO', icon: 'business-center', navigateTo: 'GPO' },
         { key: 'epi', label: 'Gestão de EPI\'s', icon: 'security', navigateTo: 'GestaoEPIs' },
         { key: 'incendio', label: 'Incêndio e Pânico', icon: 'local-fire-department', navigateTo: 'IncendioPanico' },
@@ -126,28 +77,52 @@ const CustomDrawerContent = ({ navigation }) => {
         { key: 'contratadas', label: 'Contratadas', icon: 'people', navigateTo: 'Contratadas' },
         { key: 'tributacao', label: 'Tributação SSO', icon: 'account-balance', navigateTo: 'TributacaoSSO' },
       ].map((item, index) => (
-        <TouchableOpacity
-          key={index}
-          style={[
-            styles.menuItem,
-            activeItem === item.key ? styles.activeMenuItem : null,
-          ]}
-          onPress={() => handleItemPress(item.key, item.navigateTo)}
-        >
-          <MaterialIcons
-            name={item.icon}
-            size={24}
-            color={activeItem === item.key ? '#0098c9' : '#fff'}
-          />
-          <Text
+        <View key={index}>
+          <TouchableOpacity
             style={[
-              styles.menuText,
-              activeItem === item.key ? styles.activeMenuText : null,
+              styles.menuItem,
+              activeItem === item.key ? styles.activeMenuItem : null,
             ]}
+            onPress={() =>
+              item.key === 'conformidade' ? toggleSubMenu(item.key) : handleItemPress(item.key, item.navigateTo)
+            }
           >
-            {item.label}
-          </Text>
-        </TouchableOpacity>
+            <MaterialIcons
+              name={item.icon}
+              size={24}
+              color={activeItem === item.key ? '#0098c9' : '#fff'}
+            />
+            <Text
+              style={[
+                styles.menuText,
+                activeItem === item.key ? styles.activeMenuText : null,
+              ]}
+            >
+              {item.label}
+            </Text>
+            <MaterialIcons
+              name={subMenus[item.key] ? 'keyboard-arrow-up' : 'keyboard-arrow-down'}
+              size={24}
+              color={activeItem === item.key ? '#0098c9' : '#fff'}
+            />
+          </TouchableOpacity>
+
+          {/* Submenu dentro de Conformidade Legal */}
+          {item.key === 'conformidade' && subMenus.conformidade && (
+            <View style={styles.subMenu}>
+              <TouchableOpacity
+                onPress={() => handleItemPress('submenu1', 'Submenu Conformidade 1')}
+              >
+                <Text style={styles.subMenuText}>Submenu 1</Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                onPress={() => handleItemPress('submenu2', 'Submenu Conformidade 2')}
+              >
+                <Text style={styles.subMenuText}>Submenu 2</Text>
+              </TouchableOpacity>
+            </View>
+          )}
+        </View>
       ))}
     </View>
   );
@@ -210,7 +185,7 @@ const styles = StyleSheet.create({
   menuItem: {
     flexDirection: 'row',
     alignItems: 'center',
-    paddingVertical: 15,
+    paddingVertical: 13,
     paddingHorizontal: 8,
     borderRadius: 10,
     marginBottom: 5,
@@ -235,7 +210,7 @@ const styles = StyleSheet.create({
   },
   subMenu: {
     paddingLeft: 40,
-    marginVertical: 10,
+    marginVertical: 5,
   },
   subMenuText: {
     fontSize: 16,
