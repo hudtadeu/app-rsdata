@@ -156,35 +156,18 @@ const CustomDrawerContent = ({ navigation }) => {
 export default function DrawerNavigator() {
   return (
     <NavigationContainer>
-    <Drawer.Navigator
-      drawerContent={(props) => <CustomDrawerContent {...props} />}
-      screenOptions={{
-        drawerStyle: {
-          backgroundColor: '#0098c9',
-        },
-        headerStyle: {
-          backgroundColor: '#0098c9',
-        },
-        headerTintColor: '#fff',
-        headerLeft: ({ tintColor }) => (
-          <TouchableOpacity
-            style={{ marginLeft: 15 }}
-            onPress={() => props.navigation.toggleDrawer()}
-          >
-            <MaterialIcons name="menu" size={28} color={tintColor} />
-          </TouchableOpacity>
-        ),
-        headerRight: ({ tintColor }) => (
-          <TouchableOpacity
-            style={{ marginRight: 15 }}
-            onPress={() => alert('Usuário')}
-          >
-            <MaterialIcons name="person" size={28} color={tintColor} />
-          </TouchableOpacity>
-        ),
-      }}
-    >
-
+      <Drawer.Navigator
+        drawerContent={(props) => <CustomDrawerContent {...props} />}
+        screenOptions={{
+          drawerStyle: {
+            backgroundColor: '#0098c9',
+          },
+          headerStyle: {
+            backgroundColor: '#0098c9',
+          },
+          headerTintColor: '#fff',
+        }}
+      >
         <Drawer.Screen
           name="Início"
           component={HomeScreen}
@@ -228,9 +211,9 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     paddingVertical: 15,
-    paddingHorizontal: 10,
+    paddingHorizontal: 8,
     borderRadius: 10,
-    marginBottom: 15,
+    marginBottom: 5,
   },
   activeMenuItem: {
     backgroundColor: '#e0f7fa',
@@ -243,7 +226,7 @@ const styles = StyleSheet.create({
   menuText: {
     flex: 1,
     marginLeft: 10,
-    fontSize: 18,
+    fontSize: 16,
     color: '#fff',
     fontWeight: 'bold',
   },
