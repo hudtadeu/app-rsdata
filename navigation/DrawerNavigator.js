@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { NavigationContainer } from '@react-navigation/native';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, TextInput } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
 
 import HomeScreen from '../screens/HomeScreen';
@@ -21,12 +21,23 @@ const CustomDrawerContent = ({ navigation }) => {
     tributacao: false,
   });
 
+  const [searchQuery, setSearchQuery] = useState(''); // Estado para o campo de busca
+
   const toggleSubMenu = (key) => {
     setSubMenus((prev) => ({ ...prev, [key]: !prev[key] }));
   };
 
   return (
     <View style={styles.container}>
+      {/* Campo de busca */}
+      <TextInput
+        style={styles.searchInput}
+        placeholder="Buscar..."
+        placeholderTextColor="#e0f7fa"
+        value={searchQuery}
+        onChangeText={setSearchQuery}
+      />
+
       {/* Conformidade Legal */}
       <TouchableOpacity style={styles.menuItem} onPress={() => toggleSubMenu('conformidade')}>
         <MaterialIcons name="gavel" size={24} color="#fff" />
@@ -127,7 +138,6 @@ export default function DrawerNavigator() {
         }}
       >
         <Drawer.Screen name="Início" component={HomeScreen} />
-        {/* Outras telas podem ser adicionadas aqui */}
       </Drawer.Navigator>
     </NavigationContainer>
   );
@@ -138,6 +148,17 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#0098c9',
     padding: 20,
+    paddingTop: 60,
+  },
+  searchInput: {
+    backgroundColor: '#ffffff44', // Fundo translúcido
+    color: '#fff', // Cor do texto
+    paddingVertical: 10,
+    paddingHorizontal: 15,
+    borderRadius: 10,
+    marginBottom: 15,
+    fontSize: 16,
+    marginTop: 20,
   },
   menuItem: {
     flexDirection: 'row',

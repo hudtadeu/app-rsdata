@@ -2,7 +2,6 @@ import React from 'react';
 import { View, Text, StyleSheet, FlatList, TouchableOpacity } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
 
-// Dados das opções
 const options = [
   { id: 1, title: 'GPO', color: '#4caf50', icon: 'work' },
   { id: 2, title: 'Incêndio e Pânico', color: '#ff9800', icon: 'fire-extinguisher' },
