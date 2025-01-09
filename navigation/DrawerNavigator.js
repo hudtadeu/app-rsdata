@@ -28,12 +28,9 @@ const CustomDrawerContent = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      {/* Logo na parte superior */}
       <View style={styles.logoContainer}>
         <Image source={require('../assets/logo-rsdata.png')} style={styles.logo} />
       </View>
-
-      {/* Campo de busca */}
       <TextInput
         style={styles.searchInput}
         placeholder="Buscar..."
@@ -41,8 +38,6 @@ const CustomDrawerContent = ({ navigation }) => {
         value={searchQuery}
         onChangeText={setSearchQuery}
       />
-
-      {/* Início */}
       <TouchableOpacity
         style={[
           styles.menuItem,
@@ -64,8 +59,6 @@ const CustomDrawerContent = ({ navigation }) => {
           Início
         </Text>
       </TouchableOpacity>
-
-      {/* Outros Itens */}
       {[
         { key: 'conformidade', label: 'Conformidade Legal', icon: 'gavel', navigateTo: 'Conformidade' },
         { key: 'gpo', label: 'GPO', icon: 'business-center', navigateTo: 'GPO' },
